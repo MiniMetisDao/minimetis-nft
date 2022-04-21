@@ -1,5 +1,6 @@
 import { type Theme, css } from "@emotion/react";
 
+// TODO: Put the proper resets here.
 export const globalStyles = (theme: Theme) => css`
   html,
   body {
@@ -11,6 +12,7 @@ export const globalStyles = (theme: Theme) => css`
       sans-serif;
 
     background: ${theme.color.primary};
+    transition: background 0.5s;
     color: ${theme.color.text.primary};
   }
   html {
@@ -20,6 +22,7 @@ export const globalStyles = (theme: Theme) => css`
   }
   body {
     flex: 1;
+    padding-bottom: 650px; // move it to footer
   }
   *,
   *:before,
@@ -38,5 +41,10 @@ export const globalStyles = (theme: Theme) => css`
   }
   .group:after {
     clear: both;
+  }
+
+  //TODO: move this later
+  .Toastify__toast-body a {
+    color: #fff;
   }
 `;
