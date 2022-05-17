@@ -6,7 +6,6 @@ import { useTranslation } from "react-i18next";
 import { ConnectWallet } from "components/ConnectWallet";
 
 import { Menu } from "./Menu";
-import { ThemeSwitch } from "./ThemeSwitch";
 import { styles } from "./styles";
 
 export const Header: React.FC = () => {
@@ -45,14 +44,12 @@ export const Header: React.FC = () => {
           <Menu />
         </div>
         <div className="right-wrapper">
-          <ThemeSwitch />
           <ConnectWallet />
         </div>
       </div>
       <div className={cx("mobile-menu-wrapper", { open: menuOpen })}>
         <Menu isMobile open={menuOpen} />
 
-        <ThemeSwitch />
         <ConnectWallet />
       </div>
     </div>

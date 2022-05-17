@@ -27,6 +27,7 @@
     "react-meta-tags": "^1.0.1",
     "react-pdf": "^5.7.2",
     "react-query": "^3.34.19",
+    "react-scroll-parallax": "^3.2.0",
     "react-toastify": "^8.2.0"
   },
   "devDependencies": {

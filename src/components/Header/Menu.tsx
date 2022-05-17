@@ -23,12 +23,12 @@ export const Menu: React.FC<MenuProps> = ({ isMobile, open }) => {
       <li>
         <Link to="/">{t("home")}</Link>
       </li>
-      <li>
+      {/* <li>
         <Link to="/mint">{t("mint")}</Link>
       </li>
       <li>
         <Link to="/roadmap">{t("roadmap")}</Link>
-      </li>
+      </li> */}
     </ul>
   );
 };

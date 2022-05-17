@@ -18,13 +18,13 @@ export const darkTheme: Theme = {
       shadow: { start: "#00000026", end: "#0ec4a5" },
     },
     connectButton: {
-      primary: "#8755cd",
-      hover: "#9f66ef",
+      primary: "#2261FA",
+      hover: "#638EF6",
       text: "#ffffff",
     },
     connectInfo: {
-      primary: "#C8BED6",
-      text: "#6C3DAD",
+      primary: "#638EF6",
+      text: "#fff",
     },
     primary: "#3b005f",
     secondary: "#58008e",
@@ -39,6 +39,9 @@ export const darkTheme: Theme = {
     color7: "#58008e",
     color7Shadow1: "#00000040",
     color7Shadow2: "#4e007e4d",
+    color8: "#29D4C8",
+    color9: "#2AD8CC",
+    color10: "#443247",
   },
 };
 
@@ -60,13 +63,13 @@ export const lightTheme: Theme = {
       shadow: { start: "#00000026", end: "#0ec4a5" },
     },
     connectButton: {
-      primary: "#8755cd",
-      hover: "#9f66ef",
+      primary: "#2261FA",
+      hover: "#638EF6",
       text: "#ffffff",
     },
     connectInfo: {
-      primary: "#C8BED6",
-      text: "#6C3DAD",
+      primary: "#638EF6",
+      text: "#fff",
     },
     primary: "#ffffff",
     secondary: "#7300b9",
@@ -81,5 +84,8 @@ export const lightTheme: Theme = {
     color7: "#7300b9",
     color7Shadow1: "#00000040",
     color7Shadow2: "#4e007e4d",
+    color8: "#29D4C8",
+    color9: "#2AD8CC",
+    color10: "#443247",
   },
 };
