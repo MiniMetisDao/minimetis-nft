@@ -16,6 +16,12 @@ export const Home: React.FC = () => {
           <Container>
             <h2>{t("minimetisAdventures")}</h2>
             <h3>{t("theNftsSeries")}</h3>
+            {[...Array(7).keys()].map((i) => (
+              <div
+                className={`star star-${i + 1}`}
+                style={{ transform: `rotate(${Math.random() * 360}deg)` }}
+              ></div>
+            ))}
           </Container>
         </Parallax>
       </div>
@@ -33,6 +39,12 @@ export const Home: React.FC = () => {
         <img src={nftBg} alt="MiniMetis nft preview" />
       </div>
       <div className="nft-story">
+        {[...Array(4).keys()].map((i) => (
+          <div
+            className={`blurred-star star-${i + 1}`}
+            style={{ transform: `rotate(${Math.random() * 360}deg)` }}
+          ></div>
+        ))}
         <Parallax translateY={[-15, 15]}>
           <Container>
             <div className="wrapper">
