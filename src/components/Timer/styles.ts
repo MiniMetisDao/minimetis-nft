@@ -31,6 +31,9 @@ export const styles = ({ color }: Theme) => css`
       font-weight: bold;
       font-size: 36px;
       margin: 0 28px;
+      @media (max-width: 640px) {
+        margin: 0 10px;
+      }
     }
   }
 `;

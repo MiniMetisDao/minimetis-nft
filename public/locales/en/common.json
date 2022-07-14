@@ -5,11 +5,11 @@
   "roadmap": "Roadmap",
   "home": "NFT",
   "connectWallet": "Connect to a wallet",
-  "switchWallet": "Switch to Etherium",
+  "switchWallet": "Switch to Ethereum",
   "connectionDetails": {
     "INVALID_NETWORK": "Invalid Network!",
     "WALLET_NOT_CONNECTED": "No Wallet Connected!",
-    "CONNECTED": "Etherium",
+    "CONNECTED": "Ethereum",
     "NO_METAMASK": "No Metamask Found"
   },
   "toggleTheme": "Toggle Theme",

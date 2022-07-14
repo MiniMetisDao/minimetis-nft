@@ -23,6 +23,11 @@ export const styles = css`
           background-size: 60%;
         }
       }
+      @media (max-width: 640px) {
+        ::after {
+          height: 200px;
+        }
+      }
     }
     .content {
       width: 560px;
