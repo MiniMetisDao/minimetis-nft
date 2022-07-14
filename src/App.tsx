@@ -6,6 +6,7 @@ import { ParallaxProvider } from "react-scroll-parallax";
 import { AccountChainIdListener } from "components/AccountChainIdListener";
 import { ComingSoonPage } from "pages/ComingSoonPage";
 import { HomePage } from "pages/HomePage";
+import { MintPage } from "pages/MintPage";
 import { NotFoundPage } from "pages/NotFoundPage";
 import { queryClient } from "queryClient";
 import { Theme } from "theme";
@@ -23,7 +24,7 @@ export const App: React.FC = () => (
           location={location}
           routes={[
             { path: "/", element: <HomePage /> },
-            { path: "/mint", element: <ComingSoonPage /> },
+            { path: "/mint", element: <MintPage /> },
             { path: "/roadmap", element: <ComingSoonPage /> },
             { path: "*", element: <NotFoundPage /> },
           ]}

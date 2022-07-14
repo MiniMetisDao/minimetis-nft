@@ -4,6 +4,7 @@
 import { readdirSync } from "fs";
 import { join, resolve } from "path";
 
+import { NodeGlobalsPolyfillPlugin } from "@esbuild-plugins/node-globals-polyfill";
 import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 
@@ -31,6 +32,14 @@ export default defineConfig({
   ],
   resolve: {
     alias: { ...rootFolders },
+  },
+  optimizeDeps: {
+    esbuildOptions: {
+      // Node.js global to browser globalThis
+      define: { global: "globalThis" },
+      // Enable esbuild polyfill plugins
+      plugins: [NodeGlobalsPolyfillPlugin({ buffer: true })],
+    },
   },
   test: {
     globals: true,
