@@ -1,1 +1,2 @@
-export * from "./walletDetails";
+export * from "./wallet";
+export * from "./nft";
