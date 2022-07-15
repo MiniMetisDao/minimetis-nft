@@ -21,7 +21,7 @@ export const Collection: React.FC = () => {
         <h2>{t("yourCollection", { count: data?.length })}</h2>
         <div className="collection-list">
           {data?.map((tokenId) => (
-            <div className="item">
+            <div className="item" key={tokenId}>
               <a
                 href={`https://opensea.io/assets/ethereum/${NFT_CONTRACT_ADDRESS}/${tokenId}`}
                 title={t("viewOnOpenSea", { tokenId })}

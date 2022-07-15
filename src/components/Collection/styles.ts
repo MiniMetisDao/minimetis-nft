@@ -7,6 +7,7 @@ export const styles = css`
     display: flex;
     flex-flow: wrap;
     justify-content: space-between;
+    margin-bottom: 50px;
     .item {
       display: flex;
       width: 199px;

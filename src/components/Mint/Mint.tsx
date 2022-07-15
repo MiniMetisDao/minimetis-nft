@@ -9,9 +9,9 @@ import { Container } from "components/Layout/Container";
 import { Timer } from "components/Timer";
 import { EXPLORER_URL, MINT_HUMAN_DATE, MINT_UTC_DATE } from "config";
 import {
-  useGetMintedTokens,
   useGetNftDetails,
   useGetWalletDetails,
+  useGetWhitelistStatus,
   useWhitelistMint,
 } from "queries";
 import { getShortTransactionHash } from "utils";
@@ -21,7 +21,6 @@ import { styles } from "./styles";
 const timeExpired = () => {
   const now = new Date();
   const utcDate = new Date(MINT_UTC_DATE);
-  console.log(now, utcDate, now > utcDate);
 
   return now > utcDate;
 };
@@ -34,8 +33,7 @@ export const Mint: React.FC = () => {
 
   const { data: walletDetails } = useGetWalletDetails();
   const { data: nftDetails } = useGetNftDetails();
-  const { data: mintedTokens } = useGetMintedTokens();
-  console.log("mintedTokens", mintedTokens);
+  const { data: whitelistStatus } = useGetWhitelistStatus();
   const { mutate, isError, error, data: whitelistData } = useWhitelistMint();
 
   const handleClick = () => {
@@ -80,10 +78,7 @@ export const Mint: React.FC = () => {
             a: <a target="_blank" href={`${EXPLORER_URL}tx/${txHash}`} />,
           }}
         />,
-        {
-          toastId: "minting",
-          closeButton: true,
-        }
+        { toastId: "minting", closeButton: true }
       );
     }
     if (txReceipt) {
@@ -158,31 +153,41 @@ export const Mint: React.FC = () => {
                       components={{ span: <span /> }}
                     />
                   </h3>
-                  <div className="mint-actions">
-                    <div className="mint-count-wrapper">
-                      <button onClick={handleDecrement} disabled={amount === 1}>
-                        <AiOutlineMinus />
-                      </button>
-                      <input readOnly value={amount} />
-                      <button onClick={handleIncrement} disabled={amount === 5}>
-                        <AiOutlinePlus />
+                  {whitelistStatus?.whitelistClaimed ? (
+                    <p className="success-mint-message">{t("successMint")}</p>
+                  ) : (
+                    <div className="mint-actions">
+                      <div className="mint-count-wrapper">
+                        <button
+                          onClick={handleDecrement}
+                          disabled={amount === 1}
+                        >
+                          <AiOutlineMinus />
+                        </button>
+                        <input readOnly value={amount} />
+                        <button
+                          onClick={handleIncrement}
+                          disabled={amount === 5}
+                        >
+                          <AiOutlinePlus />
+                        </button>
+                      </div>
+                      <button
+                        onClick={handleClick}
+                        disabled={
+                          walletDetails?.status !== "CONNECTED" ||
+                          !nftDetails?.whitelistMintEnabled
+                        }
+                        className={cx("mint-btn", {
+                          disabled: walletDetails?.status !== "CONNECTED",
+                        })}
+                      >
+                        <span>
+                          {mintingInProgress ? t("minting") : t("mint")}
+                        </span>
                       </button>
                     </div>
-                    <button
-                      onClick={handleClick}
-                      disabled={
-                        walletDetails?.status !== "CONNECTED" ||
-                        !nftDetails?.whitelistMintEnabled
-                      }
-                      className={cx("mint-btn", {
-                        disabled: walletDetails?.status !== "CONNECTED",
-                      })}
-                    >
-                      <span>
-                        {mintingInProgress ? t("minting") : t("mint")}
-                      </span>
-                    </button>
-                  </div>
+                  )}
                 </>
               )}
             </div>

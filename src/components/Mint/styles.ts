@@ -74,6 +74,11 @@ export const styles = css`
       line-height: 1.6;
       border-bottom: 2px solid #443247;
     }
+    .success-mint-message {
+      font-size: 36px;
+      line-height: 1.5;
+      margin: 0;
+    }
   }
   .mint-btn {
     position: relative;

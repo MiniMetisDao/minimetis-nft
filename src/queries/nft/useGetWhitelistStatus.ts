@@ -1,44 +1,35 @@
-import { UseQueryResult } from "react-query";
-
 import { NFT_CONTRACT_ADDRESS, mintingContractAbi } from "config";
+import { useGetWalletDetails } from "queries";
 import { useMultiCallContract } from "utils";
 
-const methods = [
-  "name",
-  "cost",
-  "merkleRoot",
-  "whitelistMintEnabled",
-  "totalSupply",
-  "maxSupply",
-  "maxMintAmountPerTx",
-  "paused",
-  "revealed",
-] as const;
-
-type Methods = typeof methods[number];
-
-type ResultSet = Record<Methods, any>;
-
-const query = methods.map((method) => ({
-  method,
-  address: NFT_CONTRACT_ADDRESS,
-  abi: mintingContractAbi,
-}));
-
-const selector = (results: string[]): ResultSet => {
-  const res: Partial<ResultSet> = {};
-
-  results.forEach((result, idx) => {
-    res[methods[idx]] = result;
-  });
-
-  return res as ResultSet;
+type Result = {
+  isLoading: boolean;
+  isError: boolean;
+  data?: { whitelistClaimed: boolean };
 };
 
-export const useGetNftDetails = (): UseQueryResult<ResultSet, any> => {
-  return useMultiCallContract("getNftDetails", query, {
-    // refetchOnWindowFocus: true, do we need it?
-    staleTime: Infinity,
-    select: selector,
-  });
+export const useGetWhitelistStatus = (): Result => {
+  const { data: walletDetails } = useGetWalletDetails();
+
+  const { data, isLoading, isError } = useMultiCallContract(
+    "whitelistStatus",
+    [
+      {
+        address: NFT_CONTRACT_ADDRESS,
+        method: "whitelistClaimed",
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion, @typescript-eslint/no-non-null-asserted-optional-chain
+        params: [walletDetails?.address!],
+        abi: mintingContractAbi,
+      },
+    ],
+    { enabled: Boolean(walletDetails?.address) }
+  );
+
+  const parseData = data?.[0]
+    ? data[0] === "true"
+      ? { whitelistClaimed: true }
+      : { whitelistClaimed: false }
+    : undefined;
+
+  return { isLoading, isError, data: parseData };
 };
