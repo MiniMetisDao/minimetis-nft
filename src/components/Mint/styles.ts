@@ -45,8 +45,28 @@ export const styles = css`
       font-size: 90px;
       line-height: 1;
       margin: 0 0 30px;
+      &.mint-large-text {
+        font-size: 160px;
+        line-height: 0.75;
+        margin: 50px 0 40px;
+        border-bottom: 2px solid #443247;
+        padding-bottom: 40px;
+        span {
+          font-size: 220px;
+        }
+      }
       @media (max-width: 1024px) {
         font-size: 60px;
+        &.mint-large-text {
+          font-size: 100px;
+          line-height: 0.75;
+          margin: 50px 0 40px;
+          border-bottom: 2px solid #443247;
+          padding-bottom: 40px;
+          span {
+            font-size: 140px;
+          }
+        }
       }
     }
     .human-date {
@@ -74,7 +94,12 @@ export const styles = css`
     position: relative;
     vertical-align: middle;
     user-select: none;
-    :active {
+    :disabled,
+    .disabled {
+      background: #a2a2a2;
+      cursor: not-allowed;
+    }
+    :not(:disabled):active {
       box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2),
         inset 0 2px 0 rgba(255, 255, 255, 0.1),
         inset 0 0.25em 0.5em rgba(0, 0, 0, 0.05);
@@ -86,15 +111,42 @@ export const styles = css`
       outline: none;
     }
   }
+  .mint-actions {
+    display: flex;
+    justify-content: center;
+  }
   .mint-count-wrapper {
+    display: inline-flex;
     font-size: 22px;
+    margin-right: 20px;
     button {
       background: none;
+      cursor: pointer;
       border: none;
+      :disabled,
+      .disabled {
+        cursor: not-allowed;
+        color: #666;
+      }
+      svg {
+        height: 3em;
+        width: 3em;
+        border-radius: 50%;
+        padding: 5px;
+      }
+      :hover {
+        svg {
+          background: #d0cdba;
+        }
+      }
     }
     input {
       width: 60px;
       font-size: 22px;
+      text-align: center;
+      border: none;
+      background: none;
+      padding: 0;
     }
   }
 `;

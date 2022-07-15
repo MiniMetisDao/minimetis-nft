@@ -1,29 +1,123 @@
+import { cx } from "@emotion/css";
 import { ethers } from "ethers";
 import React from "react";
-import { useTranslation } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
+import { toast } from "react-toastify";
 
 import { Container } from "components/Layout/Container";
 import { Timer } from "components/Timer";
-import { MINT_HUMAN_DATE } from "config";
-import { useGetNftDetails, useWhitelistMint } from "queries";
+import { EXPLORER_URL, MINT_HUMAN_DATE, MINT_UTC_DATE } from "config";
+import {
+  useGetMintedTokens,
+  useGetNftDetails,
+  useGetWalletDetails,
+  useWhitelistMint,
+} from "queries";
+import { getShortTransactionHash } from "utils";
 
 import { styles } from "./styles";
+
+const timeExpired = () => {
+  const now = new Date();
+  const utcDate = new Date(MINT_UTC_DATE);
+  console.log(now, utcDate, now > utcDate);
+
+  return now > utcDate;
+};
 
 export const Mint: React.FC = () => {
   const { t } = useTranslation("mint");
   const [amount, setAmount] = React.useState(5);
+  const [mintStarted, setMintStarted] = React.useState(timeExpired);
+  const [mintingInProgress, setMintingInProgress] = React.useState(false);
+
+  const { data: walletDetails } = useGetWalletDetails();
   const { data: nftDetails } = useGetNftDetails();
+  const { data: mintedTokens } = useGetMintedTokens();
+  console.log("mintedTokens", mintedTokens);
   const { mutate, isError, error, data: whitelistData } = useWhitelistMint();
 
   const handleClick = () => {
-    const amount = 1;
-    mutate({
-      amount,
-      userAddress: "0xF1Eb81107353127B1cA6CDbd8266366637e9b5C6",
-      value: ethers.BigNumber.from(nftDetails?.cost).mul(amount),
-    });
+    if (walletDetails?.address) {
+      setMintingInProgress(true);
+      console.log("amount", amount, walletDetails.address);
+      mutate({
+        amount,
+        userAddress: walletDetails.address,
+        value: ethers.BigNumber.from(nftDetails?.cost).mul(amount),
+      });
+    } else {
+      //TODO: this is an unnecessary error
+      toast.error(t("walletNotConnected"));
+    }
   };
+
+  React.useEffect(() => {
+    if (isError && error) {
+      toast.error(
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        (error as any).code! === 4001
+          ? t("transactionCancelled")
+          : t("transactionError")
+      );
+      setMintingInProgress(false);
+    }
+  }, [error, isError, t]);
+
+  React.useEffect(() => {
+    const { txHash, txReceipt } = whitelistData || {};
+    if (!txHash) return;
+    setMintingInProgress(true);
+
+    const shortHash = getShortTransactionHash(txHash);
+    if (txHash) {
+      toast.loading(
+        <Trans
+          i18nKey="transactionPending"
+          values={{ txHash: shortHash }}
+          components={{
+            a: <a target="_blank" href={`${EXPLORER_URL}tx/${txHash}`} />,
+          }}
+        />,
+        {
+          toastId: "minting",
+          closeButton: true,
+        }
+      );
+    }
+    if (txReceipt) {
+      txReceipt
+        .then(() => {
+          toast.update("minting", {
+            render: (
+              <Trans
+                i18nKey="transactionSuccess"
+                values={{ txHash: shortHash }}
+                components={{
+                  a: <a target="_blank" href={`${EXPLORER_URL}tx/${txHash}`} />,
+                }}
+              />
+            ),
+            type: toast.TYPE.SUCCESS,
+            isLoading: false,
+            autoClose: 6000,
+          });
+        })
+        .catch((error: any) => {
+          toast.update("minting", {
+            render:
+              error?.code === 4001
+                ? t("transactionCancelled")
+                : t("transactionError"),
+            type: toast.TYPE.ERROR,
+            isLoading: false,
+            autoClose: 6000,
+          });
+        })
+        .finally(() => setMintingInProgress(false));
+    }
+  }, [whitelistData, t]);
 
   const handleIncrement = () => {
     if (amount < 5) {
@@ -37,6 +131,8 @@ export const Mint: React.FC = () => {
     }
   };
 
+  const handleTimerExpire = () => setMintStarted(true);
+
   return (
     <div css={styles}>
       <div className="mint-section">
@@ -44,30 +140,49 @@ export const Mint: React.FC = () => {
           <div className="wrapper">
             <div className="content">
               <h2>{t("miniMetisNfts")}</h2>
-              <h3>{t("mintingTime")}</h3>
-              <Timer
-                onExpire={() => {
-                  console.log("oops expired!!");
-                }}
-              />
-
-              <p className="human-date">{MINT_HUMAN_DATE}</p>
-
-              {/* <h3>{t("mintNow")}</h3> */}
-              {nftDetails?.whitelistMintEnabled && (
+              {!mintStarted ? (
                 <>
-                  <div className="mint-count-wrapper">
-                    <button onClick={handleDecrement} disabled={amount === 1}>
-                      <AiOutlineMinus />
-                    </button>
-                    <input readOnly type="number" value={amount} />
-                    <button onClick={handleIncrement} disabled={amount === 5}>
-                      <AiOutlinePlus />
+                  <h3>{t("mintingTime")}</h3>
+                  <Timer
+                    expiryTimestamp={new Date(MINT_UTC_DATE)}
+                    onExpire={handleTimerExpire}
+                  />
+
+                  <p className="human-date">{MINT_HUMAN_DATE}</p>
+                </>
+              ) : (
+                <>
+                  <h3 className="mint-large-text">
+                    <Trans
+                      i18nKey="mint:mintNow"
+                      components={{ span: <span /> }}
+                    />
+                  </h3>
+                  <div className="mint-actions">
+                    <div className="mint-count-wrapper">
+                      <button onClick={handleDecrement} disabled={amount === 1}>
+                        <AiOutlineMinus />
+                      </button>
+                      <input readOnly value={amount} />
+                      <button onClick={handleIncrement} disabled={amount === 5}>
+                        <AiOutlinePlus />
+                      </button>
+                    </div>
+                    <button
+                      onClick={handleClick}
+                      disabled={
+                        walletDetails?.status !== "CONNECTED" ||
+                        !nftDetails?.whitelistMintEnabled
+                      }
+                      className={cx("mint-btn", {
+                        disabled: walletDetails?.status !== "CONNECTED",
+                      })}
+                    >
+                      <span>
+                        {mintingInProgress ? t("minting") : t("mint")}
+                      </span>
                     </button>
                   </div>
-                  <button className="mint-btn" onClick={handleClick}>
-                    <span>{t("mint")}</span>
-                  </button>
                 </>
               )}
             </div>

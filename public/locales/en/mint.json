@@ -2,7 +2,11 @@
   "title": "MiniMetis Mint NFT",
   "description": "MiniMetis Mint NFT",
   "miniMetisNfts": "Mini Metis NFTs",
-  "mintNow": "Mint Now!",
+  "mintNow": "Mint <span>Now!</span>",
   "mint": "Mint",
-  "mintingTime": "Minting Time Is Coming!"
+  "minting": "Minting",
+  "mintingTime": "Minting Time Is Coming!",  
+  "yourCollection": "Your Collection ({{count}})",
+  "minimeNft": "MiniMe NFT #{{tokenId}}",
+  "viewOnOpenSea": "View on OpenSea #{{tokenId}}"
 }

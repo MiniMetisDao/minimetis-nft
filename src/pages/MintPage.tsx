@@ -2,6 +2,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import ReactMetaTags from "react-meta-tags";
 
+import { Collection } from "components/Collection";
 import { Layout } from "components/Layout";
 import { Mint } from "components/Mint";
 
@@ -15,6 +16,7 @@ export const MintPage: React.FC = () => {
         <meta name="description" content={t("description")} />
       </ReactMetaTags>
       <Mint />
+      <Collection />
     </Layout>
   );
 };
