@@ -9,5 +9,6 @@
   "yourCollection": "Your Collection ({{count}})",
   "minimeNft": "MiniMe NFT #{{tokenId}}",
   "viewOnOpenSea": "View on OpenSea #{{tokenId}}",
-  "successMint": "Congrats! You have successfully minted your MiniMe NFT!!"
+  "successMint": "Congrats! You have successfully minted your MiniMe NFT!!",
+  "whitelistNotEnabled": "Devs are opening up whitelist minting. please wait..."
 }

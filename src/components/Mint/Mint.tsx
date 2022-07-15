@@ -39,7 +39,6 @@ export const Mint: React.FC = () => {
   const handleClick = () => {
     if (walletDetails?.address) {
       setMintingInProgress(true);
-      console.log("amount", amount, walletDetails.address);
       mutate({
         amount,
         userAddress: walletDetails.address,
@@ -156,37 +155,44 @@ export const Mint: React.FC = () => {
                   {whitelistStatus?.whitelistClaimed ? (
                     <p className="success-mint-message">{t("successMint")}</p>
                   ) : (
-                    <div className="mint-actions">
-                      <div className="mint-count-wrapper">
+                    <>
+                      {nftDetails?.whitelistMintEnabled === "false" && (
+                        <p className="mint-info-message">
+                          {t("whitelistNotEnabled")}
+                        </p>
+                      )}
+                      <div className="mint-actions">
+                        <div className="mint-count-wrapper">
+                          <button
+                            onClick={handleDecrement}
+                            disabled={amount === 1}
+                          >
+                            <AiOutlineMinus />
+                          </button>
+                          <input readOnly value={amount} />
+                          <button
+                            onClick={handleIncrement}
+                            disabled={amount === 5}
+                          >
+                            <AiOutlinePlus />
+                          </button>
+                        </div>
                         <button
-                          onClick={handleDecrement}
-                          disabled={amount === 1}
+                          onClick={handleClick}
+                          disabled={
+                            walletDetails?.status !== "CONNECTED" ||
+                            nftDetails?.whitelistMintEnabled === "false"
+                          }
+                          className={cx("mint-btn", {
+                            disabled: walletDetails?.status !== "CONNECTED",
+                          })}
                         >
-                          <AiOutlineMinus />
-                        </button>
-                        <input readOnly value={amount} />
-                        <button
-                          onClick={handleIncrement}
-                          disabled={amount === 5}
-                        >
-                          <AiOutlinePlus />
+                          <span>
+                            {mintingInProgress ? t("minting") : t("mint")}
+                          </span>
                         </button>
                       </div>
-                      <button
-                        onClick={handleClick}
-                        disabled={
-                          walletDetails?.status !== "CONNECTED" ||
-                          !nftDetails?.whitelistMintEnabled
-                        }
-                        className={cx("mint-btn", {
-                          disabled: walletDetails?.status !== "CONNECTED",
-                        })}
-                      >
-                        <span>
-                          {mintingInProgress ? t("minting") : t("mint")}
-                        </span>
-                      </button>
-                    </div>
+                    </>
                   )}
                 </>
               )}

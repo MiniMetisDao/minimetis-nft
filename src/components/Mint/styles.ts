@@ -79,6 +79,10 @@ export const styles = css`
       line-height: 1.5;
       margin: 0;
     }
+    .mint-info-message {
+      font-size: 20px;
+      line-height: 1.5;
+    }
   }
   .mint-btn {
     position: relative;
