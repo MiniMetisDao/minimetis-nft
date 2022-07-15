@@ -6,6 +6,7 @@ import { join, resolve } from "path";
 
 import { NodeGlobalsPolyfillPlugin } from "@esbuild-plugins/node-globals-polyfill";
 import react from "@vitejs/plugin-react";
+import nodePolyfills from "rollup-plugin-polyfill-node";
 import { defineConfig } from "vite";
 
 const rootFolders: { [key: string]: string } = {};
@@ -22,6 +23,9 @@ srcFolders.forEach((folder) => {
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  define: {
+    global: "globalThis",
+  },
   plugins: [
     react({
       jsxImportSource: "@emotion/react",
@@ -36,14 +40,30 @@ export default defineConfig({
   optimizeDeps: {
     esbuildOptions: {
       // Node.js global to browser globalThis
-      define: { global: "globalThis" },
+      define: {
+        global: "globalThis",
+      },
       // Enable esbuild polyfill plugins
-      plugins: [NodeGlobalsPolyfillPlugin({ buffer: true })],
+      plugins: [
+        NodeGlobalsPolyfillPlugin({
+          buffer: true,
+        }),
+      ],
     },
   },
   test: {
     globals: true,
     environment: "jsdom",
     setupFiles: ["./src/utils/testUtils/setup.ts"],
+  },
+
+  build: {
+    sourcemap: true,
+    rollupOptions: {
+      plugins: [nodePolyfills()],
+    },
+    commonjsOptions: {
+      transformMixedEsModules: true,
+    },
   },
 });
