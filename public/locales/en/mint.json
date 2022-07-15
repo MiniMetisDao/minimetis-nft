@@ -10,5 +10,7 @@
   "minimeNft": "MiniMe NFT #{{tokenId}}",
   "viewOnOpenSea": "View on OpenSea #{{tokenId}}",
   "successMint": "Congrats! You have successfully minted your MiniMe NFT!!",
-  "whitelistNotEnabled": "Devs are opening up whitelist minting. please wait..."
+  "whitelistNotEnabled": "Devs are opening up whitelist minting. please wait...",
+  "remainingNfts": "NFTs to mint : {{totalSupply}}/{{maxSupply}}",
+  "soldOut": "We are sold out!!!"
 }

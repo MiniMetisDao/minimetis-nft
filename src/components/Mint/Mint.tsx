@@ -161,6 +161,7 @@ export const Mint: React.FC = () => {
                           {t("whitelistNotEnabled")}
                         </p>
                       )}
+
                       <div className="mint-actions">
                         <div className="mint-count-wrapper">
                           <button
@@ -192,6 +193,19 @@ export const Mint: React.FC = () => {
                           </span>
                         </button>
                       </div>
+
+                      {nftDetails?.totalSupply && (
+                        <p className="mint-stats">
+                          <span>
+                            {nftDetails?.totalSupply === nftDetails?.maxSupply
+                              ? t("soldOut")
+                              : t("remainingNfts", {
+                                  totalSupply: nftDetails?.totalSupply,
+                                  maxSupply: nftDetails?.maxSupply,
+                                })}
+                          </span>
+                        </p>
+                      )}
                     </>
                   )}
                 </>

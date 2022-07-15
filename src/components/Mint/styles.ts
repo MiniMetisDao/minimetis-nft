@@ -83,6 +83,10 @@ export const styles = css`
       font-size: 20px;
       line-height: 1.5;
     }
+    .mint-stats {
+      font-size: 20px;
+      margin: 40px 0 0;
+    }
   }
   .mint-btn {
     position: relative;
