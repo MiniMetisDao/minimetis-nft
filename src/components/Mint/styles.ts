@@ -55,4 +55,46 @@ export const styles = css`
       border-bottom: 2px solid #443247;
     }
   }
+  .mint-btn {
+    position: relative;
+    background: #04d8cc;
+    font-size: 22px;
+    text-transform: uppercase;
+    border: none;
+    text-rendering: optimizeLegibility;
+    display: inline-block;
+    border-radius: 0.3em;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1),
+      inset 0 -0.25em 0 rgba(0, 0, 0, 0.25), 0 0.25em 0.25em rgba(0, 0, 0, 0.05);
+    color: #fff;
+    cursor: pointer;
+    font-weight: 700;
+    line-height: 1.5;
+    padding: 0.25em 1.5em 0.5em;
+    position: relative;
+    vertical-align: middle;
+    user-select: none;
+    :active {
+      box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2),
+        inset 0 2px 0 rgba(255, 255, 255, 0.1),
+        inset 0 0.25em 0.5em rgba(0, 0, 0, 0.05);
+      margin-top: 0.25em;
+      padding-bottom: 0.25em;
+    }
+    :active,
+    :focus {
+      outline: none;
+    }
+  }
+  .mint-count-wrapper {
+    font-size: 22px;
+    button {
+      background: none;
+      border: none;
+    }
+    input {
+      width: 60px;
+      font-size: 22px;
+    }
+  }
 `;
