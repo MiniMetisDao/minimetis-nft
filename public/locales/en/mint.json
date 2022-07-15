@@ -2,6 +2,13 @@
   "title": "MiniMetis Mint NFT",
   "description": "MiniMetis Mint NFT",
   "miniMetisNfts": "Mini Metis NFTs",
-  "mintNow": "Mint Now!",
-  "mintingTime": "Minting Time Is Coming!"
+  "mintNow": "Mint <span>Now!</span>",
+  "mint": "Mint",
+  "minting": "Minting",
+  "mintingTime": "Minting Time Is Coming!",  
+  "yourCollection": "Your Collection ({{count}})",
+  "minimeNft": "MiniMe NFT #{{tokenId}}",
+  "viewOnOpenSea": "View on OpenSea #{{tokenId}}",
+  "successMint": "Congrats! You have successfully minted your MiniMe NFT!!",
+  "whitelistNotEnabled": "Devs are opening up whitelist minting. please wait..."
 }

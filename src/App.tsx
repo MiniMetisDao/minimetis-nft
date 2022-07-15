@@ -2,6 +2,7 @@ import { Outlet, ReactLocation, Router } from "@tanstack/react-location";
 import { QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { ParallaxProvider } from "react-scroll-parallax";
+import { ToastContainer } from "react-toastify";
 
 import { AccountChainIdListener } from "components/AccountChainIdListener";
 import { ComingSoonPage } from "pages/ComingSoonPage";
@@ -30,9 +31,21 @@ export const App: React.FC = () => (
           ]}
         >
           <Outlet />
+          <ToastContainer
+            theme="dark"
+            position="bottom-right"
+            autoClose={6000}
+            hideProgressBar={false}
+            newestOnTop
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+          />
         </Router>
         <ReactQueryDevtools />
-      </QueryClientProvider>{" "}
+      </QueryClientProvider>
     </Theme>
   </ParallaxProvider>
 );

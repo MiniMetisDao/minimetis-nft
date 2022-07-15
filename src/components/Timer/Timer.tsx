@@ -1,7 +1,5 @@
 import { useTimer } from "react-timer-hook";
 
-import { MINT_UTC_DATE } from "config";
-
 import { styles } from "./styles";
 
 type TimeCellProps = {
@@ -24,12 +22,13 @@ const TimeCell: React.FC<TimeCellProps> = ({ hideSeparator, label, value }) => {
 };
 
 type TimerProps = {
+  expiryTimestamp: Date;
   onExpire: () => void;
 };
 
-export const Timer: React.FC<TimerProps> = ({ onExpire }) => {
+export const Timer: React.FC<TimerProps> = ({ expiryTimestamp, onExpire }) => {
   const { seconds, minutes, hours, days } = useTimer({
-    expiryTimestamp: new Date(MINT_UTC_DATE),
+    expiryTimestamp,
     onExpire,
   });
 
