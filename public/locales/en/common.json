@@ -1,7 +1,8 @@
 {
-  "siteName": "MiniMetis NFT",
+  "siteName": "MiniMe NFT",
   "backToMinimetis": "Back to MiniMetis.com",
-  "mint": "Mint",
+  "mint": "Exclusive Mint",
+  "publicMint": "Public Mint",
   "roadmap": "Roadmap",
   "home": "NFT",
   "connectWallet": "Connect to a wallet",
@@ -25,7 +26,7 @@
   "transactionSuccess": "Your transaction completed successfully with hash: <a>{{txHash}}</a>",
   "walletNotConnected": "No wallet connected, Please connect to a wallet",
   "comingSoon": "Coming Soon",
-  "comingSoonDescription": "Something amazing is being made by the awesome MiniMetis Team. Please check out discord or telegram for more details.",
+  "comingSoonDescription": "Something amazing is being made by the awesome MiniMe Team. Please check out discord or telegram for more details.",
   "notFound": "Page Not Found",
   "notFoundDescription": "The page you are looking for doesn't exist. Please check the url and try again."
 }

@@ -25,10 +25,7 @@ export const useMultiCallContract = (
   options: Options = {}
 ) => {
   return useQuery([key, queryInfo], () => batchLoader.load(queryInfo), {
+    ...options,
     refetchInterval: options.refetchInterval ?? DEFAULT_REFETCH_INTERVAL,
-    staleTime: options.staleTime,
-    cacheTime: options.cacheTime,
-    select: options.select,
-    enabled: options.enabled,
   });
 };

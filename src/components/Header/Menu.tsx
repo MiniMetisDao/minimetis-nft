@@ -26,6 +26,9 @@ export const Menu: React.FC<MenuProps> = ({ isMobile, open }) => {
       <li>
         <Link to="/mint">{t("mint")}</Link>
       </li>
+      <li>
+        <Link to="/public-mint">{t("publicMint")}</Link>
+      </li>
       {/* <li>
         <Link to="/roadmap">{t("roadmap")}</Link>
       </li> */}

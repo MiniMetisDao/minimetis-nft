@@ -13,23 +13,18 @@ export const useGetWhitelistStatus = (): Result => {
 
   const { data, isLoading, isError } = useMultiCallContract(
     "whitelistStatus",
-    [
-      {
-        address: NFT_CONTRACT_ADDRESS,
-        method: "whitelistClaimed",
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion, @typescript-eslint/no-non-null-asserted-optional-chain
-        params: [walletDetails?.address!],
-        abi: mintingContractAbi,
-      },
-    ],
-    { enabled: Boolean(walletDetails?.address) }
+    {
+      address: NFT_CONTRACT_ADDRESS,
+      method: "whitelistClaimed",
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion, @typescript-eslint/no-non-null-asserted-optional-chain
+      params: [walletDetails?.address!],
+      abi: mintingContractAbi,
+    },
+    {
+      enabled: Boolean(walletDetails?.address),
+      select: (response) => ({ whitelistClaimed: response === "true" }),
+    }
   );
 
-  const parseData = data?.[0]
-    ? data[0] === "true"
-      ? { whitelistClaimed: true }
-      : { whitelistClaimed: false }
-    : undefined;
-
-  return { isLoading, isError, data: parseData };
+  return { isLoading, isError, data };
 };

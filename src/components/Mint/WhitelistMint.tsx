@@ -25,7 +25,7 @@ const timeExpired = () => {
   return now > utcDate;
 };
 
-export const Mint: React.FC = () => {
+export const WhitelistMint: React.FC = () => {
   const { t } = useTranslation("mint");
   const [amount, setAmount] = React.useState(5);
   const [mintStarted, setMintStarted] = React.useState(timeExpired);
@@ -127,13 +127,19 @@ export const Mint: React.FC = () => {
 
   const handleTimerExpire = () => setMintStarted(true);
 
+  const isSoldOut =
+    nftDetails && nftDetails.totalSupply === nftDetails.maxSupply;
+
   return (
     <div css={styles}>
       <div className="mint-section">
         <Container>
           <div className="wrapper">
             <div className="content">
-              <h2>{t("miniMetisNfts")}</h2>
+              <h2>
+                {t("miniMetisNfts")} <span>{t("exclusiveForHolders")}</span>
+              </h2>
+
               {!mintStarted ? (
                 <>
                   <h3>{t("mintingTime")}</h3>
@@ -146,12 +152,21 @@ export const Mint: React.FC = () => {
                 </>
               ) : (
                 <>
-                  <h3 className="mint-large-text">
-                    <Trans
-                      i18nKey="mint:mintNow"
-                      components={{ span: <span /> }}
-                    />
-                  </h3>
+                  {nftDetails?.whitelistMintEnabled === "false" ? (
+                    <h3 className="mint-large-text ended">
+                      <Trans
+                        i18nKey="mint:mintEnded"
+                        components={{ span: <span /> }}
+                      />
+                    </h3>
+                  ) : (
+                    <h3 className="mint-large-text">
+                      <Trans
+                        i18nKey="mint:mintNow"
+                        components={{ span: <span /> }}
+                      />
+                    </h3>
+                  )}
                   {whitelistStatus?.whitelistClaimed ? (
                     <p className="success-mint-message">{t("successMint")}</p>
                   ) : (
@@ -197,12 +212,10 @@ export const Mint: React.FC = () => {
                       {nftDetails?.totalSupply && (
                         <p className="mint-stats">
                           <span>
-                            {nftDetails?.totalSupply === nftDetails?.maxSupply
-                              ? t("soldOut")
-                              : t("remainingNfts", {
-                                  totalSupply: nftDetails?.totalSupply,
-                                  maxSupply: nftDetails?.maxSupply,
-                                })}
+                            {t(isSoldOut ? "soldOut" : "remainingNfts", {
+                              totalSupply: nftDetails?.totalSupply,
+                              maxSupply: nftDetails?.maxSupply,
+                            })}
                           </span>
                         </p>
                       )}
