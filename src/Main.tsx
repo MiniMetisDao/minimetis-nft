@@ -9,7 +9,6 @@ import { App } from "./App";
 if (import.meta.env.VITE_APP_ENABLE_MOCKS === "true") {
   import("./mocks");
 }
-(window.global as any) = globalThis;
 
 ReactDOM.render(
   <React.StrictMode>

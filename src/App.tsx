@@ -9,6 +9,7 @@ import { ComingSoonPage } from "pages/ComingSoonPage";
 import { HomePage } from "pages/HomePage";
 import { MintPage } from "pages/MintPage";
 import { NotFoundPage } from "pages/NotFoundPage";
+import { PublicMintPage } from "pages/PublicMintPage";
 import { queryClient } from "queryClient";
 import { Theme } from "theme";
 
@@ -26,6 +27,7 @@ export const App: React.FC = () => (
           routes={[
             { path: "/", element: <HomePage /> },
             { path: "/mint", element: <MintPage /> },
+            { path: "/public-mint", element: <PublicMintPage /> },
             { path: "/roadmap", element: <ComingSoonPage /> },
             { path: "*", element: <NotFoundPage /> },
           ]}

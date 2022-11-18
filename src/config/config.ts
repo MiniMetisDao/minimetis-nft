@@ -9,6 +9,10 @@ export const DEFAULT_REFETCH_INTERVAL = 2_000
 export const MINT_UTC_DATE = Date.UTC(2022, 6, 15, 16, 0, 0, 0);
 export const MINT_HUMAN_DATE = "FRIDAY, JULY 15 AT 11 AM CST / 4 PM UTC"
 
+// Note - month starts from '0' so July becomes 6 instead 7.
+export const PUBLIC_MINT_UTC_DATE = Date.UTC(2022, 11, 1, 16, 0, 0, 0);
+export const PUBLIC_MINT_HUMAN_DATE = "THURSDAY, DECEMBER 1 AT 10 AM CST / 4 PM UTC"
+
 // TODO: Added for dev. Will remove it later.
 export const POLYGON_RPC_URL = "https://polygon-rpc.com/"
 export const RPC_URL = "https://rpc.ankr.com/eth"

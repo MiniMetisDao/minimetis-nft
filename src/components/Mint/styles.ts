@@ -40,6 +40,11 @@ export const styles = css`
       font-size: 32px;
       border-bottom: 2px solid #443247;
       font-weight: normal;
+      span {
+        display: block;
+        font-size: 16px;
+        line-height: 1.8;
+      }
     }
     h3 {
       font-size: 90px;
@@ -54,6 +59,13 @@ export const styles = css`
         span {
           font-size: 220px;
         }
+
+        &.ended {
+          font-size: 130px;
+          span {
+            font-size: 160px;
+          }
+        }
       }
       @media (max-width: 1024px) {
         font-size: 60px;
@@ -65,6 +77,13 @@ export const styles = css`
           padding-bottom: 40px;
           span {
             font-size: 140px;
+          }
+
+          &.ended {
+            font-size: 80px;
+            span {
+              font-size: 100px;
+            }
           }
         }
       }

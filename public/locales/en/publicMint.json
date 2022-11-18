@@ -1,18 +1,17 @@
 {
-  "title": "MiniMe NFT Exclusive Mint | minimetis.com",
-  "description": "MiniMe NFT Exclusive Mint for MiniMe token holder",
+  "title": "MiniMe NFT Public Mint | minimetis.com",
+  "description": "MiniMe NFT Public Mint",
   "miniMetisNfts": "MiniMe NFTs",
-  "exclusiveForHolders": "(Exclusive for MiniMe token holders 🧡)",
+  "publicMint": "(Public mint)",
   "mintNow": "Mint <span>Now!</span>",
-  "mintEnded": "Mint <span>Ended!</span>",
   "mint": "Mint",
   "minting": "Minting",
-  "mintingTime": "Minting Time Is Coming!",  
+  "mintingTime": "Public Mint Is Coming!",
   "yourCollection": "Your Collection ({{count}})",
   "minimeNft": "MiniMe NFT #{{tokenId}}",
   "viewOnOpenSea": "View on OpenSea #{{tokenId}}",
   "successMint": "Congrats! You have successfully minted your MiniMe NFT!!",
-  "whitelistNotEnabled": "Exclusive minting for MiniMe token holders ended!!.",
+  "contractPaused": "Please wait for devs to enable minting",
   "remainingNfts": "NFTs to mint : {{totalSupply}}/{{maxSupply}}",
   "soldOut": "We are sold out!!! {{totalSupply}}/{{maxSupply}}"
 }

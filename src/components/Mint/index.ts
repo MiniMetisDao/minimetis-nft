@@ -1,1 +1,2 @@
-export { Mint } from "./Mint";
+export { WhitelistMint } from "./WhitelistMint";
+export { PublicMint } from "./PublicMint";
